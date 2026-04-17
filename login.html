@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EmployeeLC</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h1>EmployeeLC</h1>
+                <p>Enterprise Employee Lifecycle & Performance Management System</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div id="errorAlert" class="alert alert-danger d-none">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="errorMessage"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fas fa-user"></i></span>
+                        <input type="text" id="username" name="username" class="form-control"
+                               placeholder="Enter your username" required autofocus>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="password" name="password" class="form-control"
+                               placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" id="rememberMe" class="form-check-input">
+                    <label for="rememberMe" class="form-check-label">Remember me</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <div class="session-demo">
+                    <h6><i class="fas fa-info-circle"></i> HttpSession Demo</h6>
+                    <p><i class="fas fa-clock"></i> Session will track creation time and last accessed time</p>
+                    <p><i class="fas fa-shield-alt"></i> Session timeout: 30 minutes</p>
+                    <div class="demo-credentials">
+                        <strong>Demo:</strong> <code>admin</code> / <code>admin123</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-bg-text">EmployeeLC</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Demo login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'admin' && password === 'admin123') {
+                // Create session data
+                const sessionData = {
+                    userId: 1,
+                    username: username,
+                    role: 'ADMIN',
+                    loginTime: new Date().toISOString(),
+                    sessionId: 'sess_' + Math.random().toString(36).substr(2, 9)
+                };
+
+                localStorage.setItem('employeeLC_session', JSON.stringify(sessionData));
+                window.location.href = 'dashboard.html';
+            } else {
+                document.getElementById('errorAlert').classList.remove('d-none');
+                document.getElementById('errorMessage').textContent = 'Invalid username or password!';
+            }
+        });
+    </script>
+</body>
+</html>

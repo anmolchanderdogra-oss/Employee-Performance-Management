@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EmployeeLC</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h2>EmployeeLC</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="employees.html" class="nav-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Employees</span>
+                </a>
+                <a href="departments.html" class="nav-item">
+                    <i class="fas fa-building"></i>
+                    <span>Departments</span>
+                </a>
+                <a href="performance.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Performance</span>
+                </a>
+                <a href="attendance.html" class="nav-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="session-info.html" class="nav-item">
+                    <i class="fas fa-stopwatch"></i>
+                    <span>Session Info</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1>Dashboard</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="header-right">
+                    <div class="session-timer">
+                        <i class="fas fa-clock"></i>
+                        <span id="sessionTimer">Session: --:--</span>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name" id="userName">Admin</span>
+                            <span class="user-role" id="userRole">Administrator</span>
+                        </div>
+                        <button onclick="logout()" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Session Info Banner -->
+                <div class="session-banner">
+                    <div class="session-info-item">
+                        <i class="fas fa-flag"></i>
+                        <span>Session Created: <strong id="sessionCreated">--</strong></span>
+                    </div>
+                    <div class="session-info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Last Activity: <strong id="lastAccessed">--</strong></span>
+                    </div>
+                    <div class="session-info-item">
+                        <i class="fas fa-hourglass-half"></i>
+                        <span>Session ID: <code id="sessionId">--</code></span>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-primary">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalEmployees">8</h3>
+                            <p>Total Employees</p>
+                        </div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i> Active
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-success">
+                        <div class="stat-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalDepartments">5</h3>
+                            <p>Departments</p>
+                        </div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i> Active
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-warning">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="newHires">2</h3>
+                            <p>New Hires (This Month)</p>
+                        </div>
+                        <div class="stat-trend trend-neutral">
+                            <i class="fas fa-minus"></i> Recent
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-info">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="topPerformers">3</h3>
+                            <p>Top Performers</p>
+                        </div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i> Rated
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="content-grid">
+                    <!-- Recent Hires -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-user-plus"></i> Recent Hires</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Department</th>
+                                        <th>Joining Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentHiresTable">
+                                    <tr>
+                                        <td>
+                                            <div class="employee-cell">
+                                                <div class="emp-avatar">JD</div>
+                                                <div><strong>Jessica Davis</strong><small>Software Engineer</small></div>
+                                            </div>
+                                        </td>
+                                        <td>Engineering</td>
+                                        <td>Jan 10, 2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="employee-cell">
+                                                <div class="emp-avatar">RM</div>
+                                                <div><strong>Robert Martinez</strong><small>Operations Manager</small></div>
+                                            </div>
+                                        </td>
+                                        <td>Operations</td>
+                                        <td>Jul 20, 2023</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Top Performers -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-trophy"></i> Top Performers</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Rating</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topPerformersTable">
+                                    <tr>
+                                        <td>
+                                            <div class="employee-cell">
+                                                <div class="emp-avatar success">JS</div>
+                                                <strong>John Smith</strong>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="rating-stars">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <span class="rating-value">4.8/5</span>
+                                            </div>
+                                        </td>
+                                        <td>Jan 15, 2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="employee-cell">
+                                                <div class="emp-avatar success">JG</div>
+                                                <strong>Jessica Garcia</strong>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="rating-stars">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star-half-alt filled"></i>
+                                                <span class="rating-value">4.3/5</span>
+                                            </div>
+                                        </td>
+                                        <td>Jan 15, 2024</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Department Distribution -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-pie"></i> Department Distribution</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="dept-stats" id="deptStats">
+                            <div class="dept-item">
+                                <div class="dept-info">
+                                    <span class="dept-name">Engineering</span>
+                                    <span class="dept-count">3 employees</span>
+                                </div>
+                                <div class="dept-bar">
+                                    <div class="dept-fill" style="width: 37%"></div>
+                                </div>
+                            </div>
+                            <div class="dept-item">
+                                <div class="dept-info">
+                                    <span class="dept-name">Human Resources</span>
+                                    <span class="dept-count">2 employees</span>
+                                </div>
+                                <div class="dept-bar">
+                                    <div class="dept-fill" style="width: 25%"></div>
+                                </div>
+                            </div>
+                            <div class="dept-item">
+                                <div class="dept-info">
+                                    <span class="dept-name">Marketing</span>
+                                    <span class="dept-count">1 employee</span>
+                                </div>
+                                <div class="dept-bar">
+                                    <div class="dept-fill" style="width: 12%"></div>
+                                </div>
+                            </div>
+                            <div class="dept-item">
+                                <div class="dept-info">
+                                    <span class="dept-name">Finance</span>
+                                    <span class="dept-count">1 employee</span>
+                                </div>
+                                <div class="dept-bar">
+                                    <div class="dept-fill" style="width: 12%"></div>
+                                </div>
+                            </div>
+                            <div class="dept-item">
+                                <div class="dept-info">
+                                    <span class="dept-name">Operations</span>
+                                    <span class="dept-count">1 employee</span>
+                                </div>
+                                <div class="dept-bar">
+                                    <div class="dept-fill" style="width: 12%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Check authentication
+        checkAuth();
+
+        // Load session data
+        function loadSessionData() {
+            const session = JSON.parse(localStorage.getItem('employeeLC_session') || '{}');
+
+            if (session.loginTime) {
+                document.getElementById('sessionCreated').textContent =
+                    new Date(session.loginTime).toLocaleString();
+            }
+
+            if (session.sessionId) {
+                document.getElementById('sessionId').textContent = session.sessionId;
+            }
+
+            if (session.username) {
+                document.getElementById('userName').textContent = session.username;
+            }
+
+            if (session.role) {
+                document.getElementById('userRole').textContent = session.role;
+            }
+
+            // Update last accessed
+            document.getElementById('lastAccessed').textContent = new Date().toLocaleString();
+        }
+
+        // Session timer
+        let sessionSeconds = 30 * 60; // 30 minutes
+
+        function updateSessionTimer() {
+            sessionSeconds--;
+
+            if (sessionSeconds <= 0) {
+                logout();
+                return;
+            }
+
+            const minutes = Math.floor(sessionSeconds / 60);
+            const seconds = sessionSeconds % 60;
+            document.getElementById('sessionTimer').textContent =
+                'Session: ' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateSessionTimer, 1000);
+        setInterval(() => {
+            document.getElementById('lastAccessed').textContent = new Date().toLocaleString();
+        }, 30000);
+
+        loadSessionData();
+
+        function logout() {
+            localStorage.removeItem('employeeLC_session');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
